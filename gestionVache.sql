@@ -8,18 +8,32 @@ CREATE TABLE compte (
 
 CREATE TABLE fermier (
   id INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  veterinaire_id INTEGER UNSIGNED NOT NULL,
   compte_id INTEGER UNSIGNED NOT NULL,
   ville_id_ville INTEGER UNSIGNED NOT NULL,
   fer_nom VARCHAR(64) NULL,
   fer_prenom VARCHAR(64) NULL,
+  fer_nom_ferme TEXT NULL,
   fer_adresse VARCHAR(255) NULL,
   fer_tel TEXT NULL,
   fer_label_bio BOOL NULL,
   fer_historique TEXT NULL,
   fer_photo TEXT NULL,
+  fer_email TEXT NULL,
+  fer_site_web TEXT NULL,
   PRIMARY KEY(id),
   INDEX fermier_FKIndex1(ville_id_ville),
-  INDEX fermier_FKIndex2(compte_id)
+  INDEX fermier_FKIndex2(compte_id),
+  INDEX fermier_FKIndex3(veterinaire_id)
+);
+
+CREATE TABLE like_vache_has_vache (
+  vache_id INTEGER UNSIGNED NOT NULL,
+  visiteur_id INTEGER UNSIGNED NOT NULL,
+  like_nb INTEGER UNSIGNED NULL,
+  PRIMARY KEY(vache_id),
+  INDEX like_vache_has_vache_FKIndex2(vache_id),
+  INDEX like_vache_has_vache_FKIndex2(visiteur_id)
 );
 
 CREATE TABLE pays (
@@ -70,6 +84,15 @@ CREATE TABLE vache (
   INDEX vache_FKIndex4(fermier_id)
 );
 
+CREATE TABLE vache_has_commentaire (
+  vache_id INTEGER UNSIGNED NOT NULL,
+  visiteur_id INTEGER UNSIGNED NOT NULL,
+  vac_commentaire TEXT NULL,
+  PRIMARY KEY(vache_id),
+  INDEX vache_has_commentaire_FKIndex1(vache_id),
+  INDEX vache_has_commentaire_FKIndex2(visiteur_id)
+);
+
 CREATE TABLE vache_has_productionLait (
   vache_id INTEGER UNSIGNED NOT NULL,
   productionLait_id INTEGER UNSIGNED NOT NULL,
@@ -81,25 +104,21 @@ CREATE TABLE vache_has_productionLait (
 CREATE TABLE vache_has_vaccin (
   vache_id INTEGER UNSIGNED NOT NULL,
   vaccin_id INTEGER UNSIGNED NOT NULL,
-  veterinaire_id INTEGER UNSIGNED NOT NULL,
   vac_date_effectue DATE NULL,
   vac_date_prevu DATE NULL,
   PRIMARY KEY(vache_id, vaccin_id),
   INDEX vache_has_vaccin_FKIndex1(vache_id),
-  INDEX vache_has_vaccin_FKIndex2(vaccin_id),
-  INDEX vache_has_vaccin_FKIndex3(veterinaire_id)
+  INDEX vache_has_vaccin_FKIndex2(vaccin_id)
 );
 
 CREATE TABLE veterinaire (
   id INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
-  compte_id INTEGER UNSIGNED NOT NULL,
   vet_nom VARCHAR(64) NULL,
   vet_prenom VARCHAR(64) NULL,
   vet_adresse VARCHAR(255) NULL,
   vet_tel TEXT NULL,
   vet_num_agregation VARCHAR(255) NULL,
-  PRIMARY KEY(id),
-  INDEX veterinaire_FKIndex1(compte_id)
+  PRIMARY KEY(id)
 );
 
 CREATE TABLE ville (
