@@ -30,9 +30,8 @@ CREATE TABLE fermier (
 CREATE TABLE like_vache_has_vache (
   vache_id INTEGER UNSIGNED NOT NULL,
   visiteur_id INTEGER UNSIGNED NOT NULL,
-  like_nb INTEGER UNSIGNED NULL,
   PRIMARY KEY(vache_id),
-  INDEX like_vache_has_vache_FKIndex2(vache_id),
+  INDEX like_vache_has_vache_FKIndex1(vache_id),
   INDEX like_vache_has_vache_FKIndex2(visiteur_id)
 );
 
