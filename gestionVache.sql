@@ -116,7 +116,7 @@ CREATE TABLE veterinaire (
   id INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
   vet_nom VARCHAR(64) NULL,
   vet_prenom VARCHAR(64) NULL,
-  vet_adresse VARCHAR(255) NULL,
+  vet_email TEXT NULL,
   vet_tel TEXT NULL,
   vet_num_agregation VARCHAR(255) NULL,
   PRIMARY KEY(id)
